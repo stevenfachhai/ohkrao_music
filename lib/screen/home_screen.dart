@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:siaramo_music/screen/library_screen.dart';
-import 'package:siaramo_music/screen/music_screen.dart';
-import 'package:siaramo_music/screen/store/store_screen.dart';
-import 'package:siaramo_music/screen/video/video_list_screen.dart';
+import 'package:ohkrao_music/screen/library_screen.dart';
+import 'package:ohkrao_music/screen/music_screen.dart';
+import 'package:ohkrao_music/screen/store/store_screen.dart';
+import 'package:ohkrao_music/screen/video/video_list_screen.dart';
 
 class HomeTab extends StatelessWidget {
   @override
@@ -19,9 +19,9 @@ class HomeTab extends StatelessWidget {
             SizedBox(height: 20),
             _buildSection(context, 'New Release'),
             SizedBox(height: 20),
-            _buildSection(context, 'Siâramo Music For You'),
+            _buildSection(context, 'Ôhkrao Music For You'),
             SizedBox(height: 20),
-            _buildSection(context, 'Siâramo Video For You'),
+            _buildSection(context, 'Ôhkrao Video For You'),
             SizedBox(height: 20),
             _buildSection(context, 'Top Charts'),
             SizedBox(height: 20),
@@ -60,7 +60,7 @@ class HomeTab extends StatelessWidget {
                   songTitle,
                   style: GoogleFonts.yesevaOne(
                     fontSize: 24,
-                    color: const Color.fromARGB(255, 7, 7, 7),
+                    color: Color.fromARGB(255, 8, 8, 8),
                   ),
                 ),
                 SizedBox(height: 10),
@@ -78,7 +78,7 @@ class HomeTab extends StatelessWidget {
                   videoTitle,
                   style: GoogleFonts.yesevaOne(
                     fontSize: 24,
-                    color: const Color.fromARGB(255, 3, 3, 3),
+                    color: Color.fromARGB(255, 17, 17, 17),
                   ),
                 ),
                 SizedBox(height: 10),
@@ -93,20 +93,24 @@ class HomeTab extends StatelessWidget {
   }
 
   Widget _buildSection(BuildContext context, String title) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          title,
-          style: GoogleFonts.yesevaOne(
-            fontSize: 24,
-            color: const Color.fromARGB(255, 7, 7, 7),
+    if (title == 'New Release') {
+      return _buildNewReleaseBanner(context);
+    } else {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            title,
+            style: GoogleFonts.yesevaOne(
+              fontSize: 24,
+              color: Color.fromARGB(255, 245, 242, 242),
+            ),
           ),
-        ),
-        SizedBox(height: 10),
-        _buildHorizontalList(context, title),
-      ],
-    );
+          SizedBox(height: 10),
+          _buildHorizontalList(context, title),
+        ],
+      );
+    }
   }
 
   Widget _buildHorizontalList(BuildContext context, String type) {
@@ -137,7 +141,7 @@ class HomeTab extends StatelessWidget {
                 Text(
                   '$type ${index + 1}',
                   style: TextStyle(
-                    color: const Color.fromARGB(255, 12, 12, 12),
+                    color: Color.fromARGB(255, 248, 243, 243),
                     fontSize: 16,
                   ),
                   overflow: TextOverflow.ellipsis,
@@ -173,13 +177,102 @@ class HomeTab extends StatelessWidget {
           Text(
             title,
             style: TextStyle(
-              color: const Color.fromARGB(255, 12, 12, 12),
+              color: Color.fromARGB(255, 249, 247, 247),
               fontSize: 16,
             ),
             overflow: TextOverflow.ellipsis,
           ),
         ],
       ),
+    );
+  }
+
+  Widget _buildNewReleaseBanner(BuildContext context) {
+    return Stack(
+      children: [
+        Container(
+          height: 200,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(8.0),
+            color: Colors.grey,
+            image: DecorationImage(
+              image: AssetImage('assets/for.jpg'),
+              fit: BoxFit.cover,
+            ),
+          ),
+        ),
+        Positioned(
+          left: 16,
+          top: 16,
+          child: Container(
+            width: 120,
+            height: 160,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(8.0),
+              color: Colors.blue,
+              image: DecorationImage(
+                image: AssetImage('assets/for.jpg'),
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+        ),
+        Positioned(
+          left: 150,
+          top: 16,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'MEZZO FORD',
+                style: GoogleFonts.yesevaOne(
+                  fontSize: 20,
+                  color: Colors.white,
+                ),
+              ),
+              Text(
+                'KYMPACHANA VADA',
+                style: GoogleFonts.yesevaOne(
+                  fontSize: 16,
+                  color: Colors.white,
+                ),
+              ),
+              SizedBox(height: 10),
+              Text(
+                'AUDIO',
+                style: GoogleFonts.yesevaOne(
+                  fontSize: 16,
+                  color: Colors.white,
+                ),
+              ),
+            ],
+          ),
+        ),
+        Positioned(
+          right: 16,
+          bottom: 16,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Icon(Icons.shopping_cart, color: Colors.white),
+              Text(
+                'BUY NOW',
+                style: GoogleFonts.yesevaOne(
+                  fontSize: 16,
+                  color: Colors.white,
+                ),
+              ),
+              Text(
+                '\$20',
+                style: GoogleFonts.yesevaOne(
+                  fontSize: 16,
+                  color: Colors.white,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }
@@ -199,7 +292,7 @@ class _HomeScreenState extends State<HomeScreen> {
     MusicScreen(),
     LibraryScreen(),
     VideoListScreen(),
-    StoreScreen()
+    StoreScreen(),
   ];
 
   void _onItemTapped(int index) {
@@ -220,9 +313,9 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         title: Center(
           child: Text(
-            'SIÂRAMO MUSIC & VIDEO',
-            style:
-                GoogleFonts.yesevaOne(color: Color.fromARGB(255, 10, 10, 10)),
+            'ÔHKRAO MUSIC & VIDEO',
+            style: GoogleFonts.yesevaOne(
+                color: Color.fromARGB(255, 254, 253, 253)),
           ),
         ),
         actions: <Widget>[
@@ -240,11 +333,11 @@ class _HomeScreenState extends State<HomeScreen> {
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
+            icon: ImageIcon(AssetImage('assets/Home.PNG')),
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.music_note),
+            icon: ImageIcon(AssetImage('assets/music.PNG')),
             label: 'MUSIC',
           ),
           BottomNavigationBarItem(
@@ -252,17 +345,17 @@ class _HomeScreenState extends State<HomeScreen> {
             label: 'UPLOAD',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.video_call),
+            icon: ImageIcon(AssetImage('assets/videos.PNG')),
             label: 'VIDEOS',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.store),
+            icon: ImageIcon(AssetImage('assets/Store.PNG')),
             label: 'STORE',
           ),
         ],
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.green,
-        unselectedItemColor: Color.fromARGB(255, 11, 11, 11),
+        unselectedItemColor: Color.fromARGB(255, 251, 248, 248),
         selectedLabelStyle: TextStyle(
           fontWeight: FontWeight.bold,
           fontSize: 14,
@@ -271,7 +364,7 @@ class _HomeScreenState extends State<HomeScreen> {
           fontWeight: FontWeight.normal,
           fontSize: 12,
         ),
-        backgroundColor: Colors.black,
+        backgroundColor: const Color.fromARGB(255, 248, 246, 246),
         onTap: _onItemTapped,
       ),
     );
